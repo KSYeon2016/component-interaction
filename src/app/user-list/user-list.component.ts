@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { User } from '../models/user.model';
 
 @Component({
@@ -11,6 +11,7 @@ import { User } from '../models/user.model';
           <th>ID</th>
           <th>Name</th>
           <th>Role</th>
+          <th>Action</th>
         </tr>
       </thead>
       <tbody>
@@ -19,6 +20,11 @@ import { User } from '../models/user.model';
           <td>{{ user.id }}</td>
           <td>{{ user.name }}</td>
           <td>{{ user.role }}</td>
+          <td>
+            <button class="btn btn-danger btn-sm" (click)="remove.emit(user)">
+              <span class="glyphicon glyphicon-remove"></span>
+            </button>
+          </td>
         </tr>
       </tbody>
     </table>
@@ -57,6 +63,10 @@ export class UserListComponent implements OnInit {
   get users(): User[] {
     return this._users;
   }
+
+  // 부모 컴포넌트에게 상태 정보를 전달하기 위해 출력 프로퍼티를 EventEmitter 객체로 초기화
+  @Output()
+  remove = new EventEmitter<User>();
 
   constructor() { }
 

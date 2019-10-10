@@ -22,7 +22,7 @@ import { User } from './models/user.model';
               (click)="addUser(name.value, role.value)">Add user
             </button>
           </div>
-          <app-user-list [users]="users"></app-user-list>
+          <app-user-list [users]="users" (remove)="removeUser($event)"></app-user-list>
         </div>
       </div>
     </div>
@@ -39,6 +39,11 @@ export class AppComponent {
       new User(2, "Baek", "Developer"),
       new User(3, "Park", "Designer")
     ];
+  }
+
+  // 해당 사용자 제거
+  removeUser (user: User) {
+    this.users = this.users.filter(({id}) => id !== user.id);
   }
 
   // 사용자 추가
